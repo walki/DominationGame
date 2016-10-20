@@ -19,6 +19,11 @@ namespace Risk
 
         }
 
+        public void LoadBoard()
+        {
+
+        }
+
         public void CreateBoard()
         {
             Continent northAmerica = new Continent(ContinentName.NorthAmerica);
