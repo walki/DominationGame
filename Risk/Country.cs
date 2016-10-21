@@ -8,7 +8,7 @@ namespace Risk
 {
     public enum CountryName
     {
-        Alaska,
+        Alaska = 1,
         NorthWestTerritory,
         Greenland,
         Alberta,
@@ -61,7 +61,7 @@ namespace Risk
 
     public class Country
     {
-        public List<Country> Neighbors
+        public List<CountryName> Neighbors
         {
             get;
             set;
@@ -79,20 +79,23 @@ namespace Risk
             set;
         }
 
-        //public Continent Region
-        //{
-        //    get;
-        //    set;
-        //}
+        public int Id
+        {
+            get;
+            set;
+        }
 
         public CountryName Name { get; set; }
 
         public Country(CountryName name)
         {
             Name = name;
-            Neighbors = new List<Country>();
+            Id = (int)name;
+            Neighbors = new List<CountryName>();
             Armies = new List<Army>();
         }
+
+        
 
 
     }

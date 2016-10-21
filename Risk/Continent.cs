@@ -8,7 +8,7 @@ namespace Risk
 {
     public enum ContinentName
     {
-        NorthAmerica,
+        NorthAmerica = 1,
         SouthAmerica,
         Europe,
         Africa,
@@ -18,13 +18,16 @@ namespace Risk
 
     public class Continent
     {
+
+        public int Id { get; set; }
         public List<Country> Countries { get; set; }
         public ContinentName Name { get; set; }
+        public int ArmyBonus { get; set; }
 
-       
         public Continent(ContinentName name)
         {
             Name = name;
+            Id = (int)name;
             Countries = new List<Country>();
         }
 

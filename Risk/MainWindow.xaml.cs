@@ -23,6 +23,10 @@ namespace Risk
         public MainWindow()
         {
             InitializeComponent();
+
+            Board bd = new Board();
+            bd.CreateBoard();
+            bd.WriteBoard();
         }
     }
 }
