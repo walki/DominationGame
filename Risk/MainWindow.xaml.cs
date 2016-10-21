@@ -25,8 +25,9 @@ namespace Risk
             InitializeComponent();
 
             Board bd = new Board();
-            bd.CreateBoard();
-            bd.WriteBoard();
+            //bd.CreateBoard();
+            //bd.WriteBoard();
+            bd.LoadBoard();
         }
     }
 }

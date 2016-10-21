@@ -23,20 +23,20 @@ namespace Risk
 
         public void LoadBoard()
         {
-
+            using (StreamReader sr = new StreamReader("C:\\users\\roger\\desktop\\json.txt"))
+            {
+                string json = sr.ReadToEnd();
+                Continents = JsonConvert.DeserializeObject<List<Continent>>(json);
+            }
         }
 
         public void WriteBoard()
         {
             using (StreamWriter sw = new StreamWriter("C:\\users\\roger\\desktop\\json.txt"))
             {
-                foreach (var cont in Continents)
-                {
-                    string json = JsonConvert.SerializeObject(cont, Formatting.Indented);
-                    
-                    sw.WriteLine(json);
-                    
-                }
+                string json = JsonConvert.SerializeObject(Continents, Formatting.Indented);       
+                sw.WriteLine(json);
+                
             }
         }
 
