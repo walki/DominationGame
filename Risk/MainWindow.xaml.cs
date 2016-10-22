@@ -26,8 +26,13 @@ namespace Risk
 
             Board bd = new Board();
             //bd.CreateBoard();
-            //bd.WriteBoard();
+
             bd.LoadBoard();
+
+            if (bd.ValidateCountryNeighbors())
+            {
+                bd.WriteBoard();
+            }
         }
     }
 }

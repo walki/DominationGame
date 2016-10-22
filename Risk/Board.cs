@@ -16,6 +16,12 @@ namespace Risk
             set;
         }
 
+        Dictionary<CountryName, Country> AllCountries
+        {
+            get;
+            set;
+        }
+
         public Board()
         {
 
@@ -28,6 +34,7 @@ namespace Risk
                 string json = sr.ReadToEnd();
                 Continents = JsonConvert.DeserializeObject<List<Continent>>(json);
             }
+            FillAllCountries();
         }
 
         public void WriteBoard()
@@ -42,12 +49,12 @@ namespace Risk
 
         public void CreateBoard()
         {
-            Continent northAmerica = new Continent(ContinentName.NorthAmerica);
-            Continent southAmerica = new Continent(ContinentName.SouthAmerica);
-            Continent europe = new Continent(ContinentName.Europe);
-            Continent africa = new Continent(ContinentName.Africa);
-            Continent asia = new Continent(ContinentName.Asia);
-            Continent australia = new Continent(ContinentName.Australia);
+            Continent northAmerica = new Continent(ContinentName.NorthAmerica, 5);
+            Continent southAmerica = new Continent(ContinentName.SouthAmerica, 2);
+            Continent europe = new Continent(ContinentName.Europe, 5);
+            Continent africa = new Continent(ContinentName.Africa, 3);
+            Continent asia = new Continent(ContinentName.Asia, 7);
+            Continent australia = new Continent(ContinentName.Australia, 2);
 
             Country alaska = new Country(CountryName.Alaska);
             Country northWestTerritory = new Country(CountryName.NorthWestTerritory);
@@ -99,51 +106,52 @@ namespace Risk
 
             alaska.Neighbors = new List<CountryName>() { CountryName.Kamchatka, CountryName.NorthWestTerritory, CountryName.Alberta };
             northWestTerritory.Neighbors = new List<CountryName>() { CountryName.Alaska, CountryName.Alberta, CountryName.Ontario, CountryName.Greenland };
-            //greenland.Neighbors = new List<Country>() { northWestTerritory, ontario, quebec, iceland };
-            //alberta.Neighbors = new List<Country>() { alaska, northWestTerritory, ontario, westernUnitedStates };
-            //ontario.Neighbors = new List<Country>() { alberta, northWestTerritory, greenland, quebec, easternUnitedStates, westernUnitedStates };
-            //quebec.Neighbors = new List<Country>() { ontario, greenland, easternUnitedStates };
-            //westernUnitedStates.Neighbors = new List<Country>() { alberta, ontario, easternUnitedStates, centralAmerica };
-            //easternUnitedStates.Neighbors = new List<Country>() { westernUnitedStates, ontario, quebec, centralAmerica };
-            //centralAmerica.Neighbors = new List<Country>() { westernUnitedStates, easternUnitedStates, venezuela };
+            greenland.Neighbors = new List<CountryName>() { CountryName.NorthWestTerritory, CountryName.Ontario, CountryName.Quebec, CountryName.Iceland };
+            alberta.Neighbors = new List<CountryName>() { CountryName.Alaska, CountryName.NorthWestTerritory, CountryName.Ontario, CountryName.WesternUnitedStates };
+            ontario.Neighbors = new List<CountryName>() { CountryName.Alberta, CountryName.NorthWestTerritory, CountryName.Greenland, CountryName.Quebec, CountryName.EasternUnitedStates, CountryName.WesternUnitedStates };
+            quebec.Neighbors = new List<CountryName>() { CountryName.Ontario, CountryName.Greenland, CountryName.EasternUnitedStates };
+            westernUnitedStates.Neighbors = new List<CountryName>() { CountryName.Alberta, CountryName.Ontario, CountryName.EasternUnitedStates, CountryName.CentralAmerica };
+            easternUnitedStates.Neighbors = new List<CountryName>() { CountryName.WesternUnitedStates, CountryName.Ontario, CountryName.Quebec, CountryName.CentralAmerica };
+            centralAmerica.Neighbors = new List<CountryName>() { CountryName.WesternUnitedStates, CountryName.EasternUnitedStates, CountryName.Venezuela };
 
-            //venezuela.Neighbors = new List<Country>() { centralAmerica, brazil, peru };
-            //peru.Neighbors = new List<Country>() { venezuela, brazil, argentina };
-            //brazil.Neighbors = new List<Country>() { peru, venezuela, argentina };
-            //argentina.Neighbors = new List<Country>() { peru, brazil };
+            venezuela.Neighbors = new List<CountryName>() { CountryName.CentralAmerica, CountryName.Brazil, CountryName.Peru };
+            peru.Neighbors = new List<CountryName>() { CountryName.Venezuela, CountryName.Brazil, CountryName.Argentina };
+            brazil.Neighbors = new List<CountryName>() { CountryName.Peru, CountryName.Venezuela, CountryName.Argentina, CountryName.NorthAfrica };
+            argentina.Neighbors = new List<CountryName>() { CountryName.Peru, CountryName.Brazil };
 
-            //iceland.Neighbors = new List<Country>() { greenland, scandinavia, greatBritain };
-            //scandinavia.Neighbors = new List<Country>() { iceland, ukraine, northernEurope, greatBritain };
-            //greatBritain.Neighbors = new List<Country>() { iceland, scandinavia, northernEurope, westernEurope };
-            //northernEurope.Neighbors = new List<Country>() { greatBritain, scandinavia, ukraine, southernEurope, westernEurope };
-            //ukraine.Neighbors = new List<Country>() { scandinavia, ural, afghanistan, middleEast, southernEurope, northernEurope };
-            //westernEurope.Neighbors = new List<Country>() { greatBritain, northernEurope, southernEurope, northAfrica };
-            //southernEurope.Neighbors = new List<Country>() { westernEurope, northernEurope, ukraine, middleEast, egypt, northAfrica };
+            iceland.Neighbors = new List<CountryName>() { CountryName.Greenland, CountryName.Scandinavia, CountryName.GreatBritain };
+            scandinavia.Neighbors = new List<CountryName>() { CountryName.Iceland, CountryName.Ukraine, CountryName.NorthernEurope, CountryName.GreatBritain };
+            greatBritain.Neighbors = new List<CountryName>() { CountryName.Iceland, CountryName.Scandinavia, CountryName.NorthernEurope, CountryName.WesternEurope };
+            northernEurope.Neighbors = new List<CountryName>() { CountryName.GreatBritain, CountryName.Scandinavia, CountryName.Ukraine, CountryName.SouthernEurope, CountryName.WesternEurope };
+            ukraine.Neighbors = new List<CountryName>() { CountryName.Scandinavia, CountryName.Ural, CountryName.Afghanistan, CountryName.MiddleEast, CountryName.SouthernEurope, CountryName.NorthernEurope };
+            westernEurope.Neighbors = new List<CountryName>() { CountryName.GreatBritain, CountryName.NorthernEurope, CountryName.SouthernEurope, CountryName.NorthAfrica };
+            southernEurope.Neighbors = new List<CountryName>() { CountryName.WesternEurope, CountryName.NorthernEurope, CountryName.Ukraine, CountryName.MiddleEast, CountryName.Egypt, CountryName.NorthAfrica };
 
-            //northAfrica.Neighbors = new List<Country>() { brazil, westernEurope, southernEurope, egypt, eastAfrica, congo };
-            //egypt.Neighbors = new List<Country>() { northAfrica, southernEurope, middleEast, eastAfrica };
-            //eastAfrica.Neighbors = new List<Country>() { northAfrica, egypt, middleEast, madagascar, southAfrica, congo, northAfrica };
-            //congo.Neighbors = new List<Country>() { northAfrica, eastAfrica, southAfrica };
-            //southAfrica.Neighbors = new List<Country>() { congo, eastAfrica, madagascar };
-            //madagascar.Neighbors = new List<Country>() { southAfrica, eastAfrica };
+            northAfrica.Neighbors = new List<CountryName>() { CountryName.Brazil, CountryName.WesternEurope, CountryName.SouthernEurope, CountryName.Egypt, CountryName.EastAfrica, CountryName.Congo };
+            egypt.Neighbors = new List<CountryName>() { CountryName.NorthAfrica, CountryName.SouthernEurope, CountryName.MiddleEast, CountryName.EastAfrica };
+            eastAfrica.Neighbors = new List<CountryName>() { CountryName.NorthAfrica, CountryName.Egypt, CountryName.MiddleEast, CountryName.Madagascar, CountryName.SouthAfrica, CountryName.Congo };
+            congo.Neighbors = new List<CountryName>() { CountryName.NorthAfrica, CountryName.EastAfrica, CountryName.SouthAfrica };
+            southAfrica.Neighbors = new List<CountryName>() { CountryName.Congo, CountryName.EastAfrica, CountryName.Madagascar };
+            madagascar.Neighbors = new List<CountryName>() { CountryName.SouthAfrica, CountryName.EastAfrica };
 
-            //ural.Neighbors = new List<Country>() { ukraine, siberia, china, afghanistan };
-            //siberia.Neighbors = new List<Country>() { ural, yakutsk, irkutsk, mongolia, china };
-            //yakutsk.Neighbors = new List<Country>() { siberia, kamchatka, irkutsk };
-            //kamchatka.Neighbors = new List<Country>() { yakutsk, alaska, japan, mongolia, irkutsk };
-            //irkutsk.Neighbors = new List<Country>() { siberia, yakutsk, kamchatka, mongolia };
-            //mongolia.Neighbors = new List<Country>() { siberia, irkutsk, kamchatka, japan, china };
-            //japan.Neighbors = new List<Country>() { mongolia, kamchatka };
-            //afghanistan.Neighbors = new List<Country>() { ukraine, ural, china, india, middleEast };
-            //china.Neighbors = new List<Country>() { afghanistan, ural, siberia, mongolia, siam, india };
-            //middleEast.Neighbors = new List<Country>() { southernEurope, ukraine, afghanistan, india, eastAfrica, egypt };
-            //india.Neighbors = new List<Country>() { middleEast, afghanistan, china, siam };
-            //siam.Neighbors = new List<Country>() { india, china, indonesia };
+            ural.Neighbors = new List<CountryName>() { CountryName.Ukraine, CountryName.Siberia, CountryName.China, CountryName.Afghanistan };
+            siberia.Neighbors = new List<CountryName>() { CountryName.Ural, CountryName.Yakutsk, CountryName.Irkutsk, CountryName.Mongolia, CountryName.China };
+            yakutsk.Neighbors = new List<CountryName>() { CountryName.Siberia, CountryName.Kamchatka, CountryName.Irkutsk };
+            kamchatka.Neighbors = new List<CountryName>() { CountryName.Yakutsk, CountryName.Alaska, CountryName.Japan, CountryName.Mongolia, CountryName.Irkutsk };
+            irkutsk.Neighbors = new List<CountryName>() { CountryName.Siberia, CountryName.Yakutsk, CountryName.Kamchatka, CountryName.Mongolia };
+            mongolia.Neighbors = new List<CountryName>() { CountryName.Siberia, CountryName.Irkutsk, CountryName.Kamchatka, CountryName.Japan, CountryName.China };
+            japan.Neighbors = new List<CountryName>() { CountryName.Mongolia, CountryName.Kamchatka };
+            afghanistan.Neighbors = new List<CountryName>() { CountryName.Ukraine, CountryName.Ural, CountryName.China, CountryName.India, CountryName.MiddleEast };
+            china.Neighbors = new List<CountryName>() { CountryName.Afghanistan, CountryName.Ural, CountryName.Siberia, CountryName.Mongolia, CountryName.Siam, CountryName.India };
+            middleEast.Neighbors = new List<CountryName>() { CountryName.SouthernEurope, CountryName.Ukraine, CountryName.Afghanistan, CountryName.India, CountryName.EastAfrica, CountryName.Egypt };
+            india.Neighbors = new List<CountryName>() { CountryName.MiddleEast, CountryName.Afghanistan, CountryName.China, CountryName.Siam };
+            siam.Neighbors = new List<CountryName>() { CountryName.India, CountryName.China, CountryName.Indonesia };
 
-            //indonesia.Neighbors = new List<Country>() { siam, newGuinea, westernAustralia };
-            //newGuinea.Neighbors = new List<Country>() { indonesia, easternAustralia, westernAustralia };
-            //westernAustralia.Neighbors = new List<Country>() { indonesia, newGuinea, easternAustralia };
-            //easternAustralia.Neighbors = new List<Country>() { westernAustralia, newGuinea };
+            indonesia.Neighbors = new List<CountryName>() { CountryName.Siam, CountryName.NewGuinea, CountryName.WesternAustralia };
+            newGuinea.Neighbors = new List<CountryName>() { CountryName.Indonesia, CountryName.EasternAustralia, CountryName.WesternAustralia };
+            westernAustralia.Neighbors = new List<CountryName>() { CountryName.Indonesia, CountryName.NewGuinea, CountryName.EasternAustralia };
+            easternAustralia.Neighbors = new List<CountryName>() { CountryName.WesternAustralia, CountryName.NewGuinea };
+            
 
             northAmerica.Countries = new List<Country>() { alaska, northWestTerritory, greenland,
                                                             alberta, ontario, quebec,
@@ -165,6 +173,40 @@ namespace Risk
 
             Continents = new List<Continent>() { northAmerica, southAmerica, europe, africa, asia, australia };
 
+            FillAllCountries();
+        }
+
+        public void FillAllCountries()
+        {
+            AllCountries = new Dictionary<CountryName, Country>();
+            foreach (Continent continent in Continents)
+            {
+                foreach (Country country in continent.Countries)
+                {
+                    AllCountries.Add(country.Id, country);
+                }
+            }
+        }
+
+        public bool ValidateCountryNeighbors()
+        {
+            bool valid = true;
+            foreach (Country countryA in AllCountries.Values)
+            {
+                foreach(CountryName countryBId in countryA.Neighbors)
+                {
+                    Country countryB = AllCountries[countryBId];
+                    if (countryB != null && countryB.Neighbors.Exists(x => x == countryA.Id))
+                    {
+
+                    }
+                    else
+                    {
+                        valid = false;
+                    }
+                }
+            }
+            return valid;
         }
 
     }

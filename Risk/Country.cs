@@ -79,18 +79,23 @@ namespace Risk
             set;
         }
 
-        public int Id
+        public CountryName Id
         {
             get;
             set;
         }
 
-        public CountryName Name { get; set; }
+        public String Name
+        {
+            get
+            {
+                return Id.ToString();
+            }
+        }
 
         public Country(CountryName name)
         {
-            Name = name;
-            Id = (int)name;
+            Id = name;
             Neighbors = new List<CountryName>();
             Armies = new List<Army>();
         }

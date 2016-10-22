@@ -19,16 +19,24 @@ namespace Risk
     public class Continent
     {
 
-        public int Id { get; set; }
+        public ContinentName Id { get; set; }
         public List<Country> Countries { get; set; }
-        public ContinentName Name { get; set; }
+        public String Name
+        {
+            get
+            {
+                return Id.ToString();
+            }
+            
+
+        }
         public int ArmyBonus { get; set; }
 
-        public Continent(ContinentName name)
+        public Continent(ContinentName name, int armyBonus)
         {
-            Name = name;
-            Id = (int)name;
+            Id = name;
             Countries = new List<Country>();
+            ArmyBonus = armyBonus;
         }
 
     }
